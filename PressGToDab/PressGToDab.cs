@@ -12,7 +12,7 @@ namespace PressGToDab
         // Token: 0x06000007 RID: 7 RVA: 0x000021DC File Offset: 0x000003DC
         public override string GetVersion()
         {
-            return "1.1.0";
+            return "1.2.0";
         }
 
         // Token: 0x06000008 RID: 8 RVA: 0x000021F4 File Offset: 0x000003F4
