@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using CustomKnight;
+using Modding;
 
 namespace PressGToDab
 {
 	// Token: 0x02000002 RID: 2
 	public class Emoter : MonoBehaviour
 	{
+		private void AddToCustomKnight(string name) {
+			if(!CustomKnight.SkinManager.Skinables.ContainsKey(name))
+			{
+                CustomKnight.SkinManager.Skinables.Add(name, new SkinableEmote(name));
+            }
+		}
 		// Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
 		private void Awake()
 		{
@@ -29,8 +37,12 @@ namespace PressGToDab
 			List<tk2dSpriteAnimationClip> list2 = this._anim.Library.clips.ToList<tk2dSpriteAnimationClip>();
 			foreach (tk2dSpriteAnimationClip item in PressGToDab.EmotesBundle.LoadAsset<GameObject>("EmotesAnim").GetComponent<tk2dSpriteAnimation>().clips)
 			{
-				list2.Add(item);
-			}
+                list2.Add(item);
+				if (item.name.Length > 0 && ModHooks.GetMod("CustomKnight") is Mod)
+                {
+                    AddToCustomKnight(item.name);
+                }
+            }
 			this._anim.Library.clips = list2.ToArray();
 		}
 
